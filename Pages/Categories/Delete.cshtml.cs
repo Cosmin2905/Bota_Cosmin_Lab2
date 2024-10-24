@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Bota_Cosmin_Lab2.Data;
 using Bota_Cosmin_Lab2.Models;
 
-namespace Bota_Cosmin_Lab2.Pages.Books
+namespace Bota_Cosmin_Lab2.Pages.Categories
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace Bota_Cosmin_Lab2.Pages.Books
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,22 +29,15 @@ namespace Bota_Cosmin_Lab2.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book
-                .Include(b => b.Publisher)
-                .Include(b => b.Author)
-                .Include(b => b.BookCategories)
-                .ThenInclude(bc => bc.Category)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
 
-
-            if (Book == null)
+            if (category == null)
             {
                 return NotFound();
             }
             else
             {
-                Book = Book;
+                Category = category;
             }
             return Page();
         }
@@ -56,11 +49,11 @@ namespace Bota_Cosmin_Lab2.Pages.Books
                 return NotFound();
             }
 
-            var book = await _context.Book.FindAsync(id);
-            if (book != null)
+            var category = await _context.Category.FindAsync(id);
+            if (category != null)
             {
-                Book = book;
-                _context.Book.Remove(Book);
+                Category = category;
+                _context.Category.Remove(Category);
                 await _context.SaveChangesAsync();
             }
 
