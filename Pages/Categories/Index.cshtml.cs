@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Bota_Cosmin_Lab2.Data;
 using Bota_Cosmin_Lab2.Models;
 using Bota_Cosmin_Lab2.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bota_Cosmin_Lab2.Pages.Categories
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly Bota_Cosmin_Lab2.Data.Bota_Cosmin_Lab2Context _context;

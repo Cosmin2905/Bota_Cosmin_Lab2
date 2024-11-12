@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Bota_Cosmin_Lab2.Data;
 using Bota_Cosmin_Lab2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bota_Cosmin_Lab2.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : BookCategoryPageModel
     {
         private readonly Bota_Cosmin_Lab2.Data.Bota_Cosmin_Lab2Context _context;
